@@ -1,41 +1,10 @@
-# subscriber_management
+### How to use
 
-This template should help get you started developing with Vue 3 in Vite.
+- Clone the project with `git clone`
+- npm install && npm run dev
+- your project would be running at http://localhost:3000
 
-## Recommended IDE Setup
+### Screenshots
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-npm run test:unit
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+- below is how the front end looks like. It allows to create a subscriber, delete a subscriber and validate subscrbers, it also contains backend validation
+<img src="https://raw.githubusercontent.com/amitleuva1987/subscriber_management-front_end/master/front_screenshot.jpg" /> 
