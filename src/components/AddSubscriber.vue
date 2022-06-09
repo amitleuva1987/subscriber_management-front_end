@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import http from "../http_common.js";
 import {Form, Field, ErrorMessage} from 'vee-validate'
 import * as yup from 'yup'
 
@@ -57,7 +57,7 @@ export default {
     methods:{
         async add_subscriber(){
             this.loading = true;
-            await axios.post('http://localhost/api/subscribers',{name:this.name,email:this.email,state:this.state}).then(response => {
+            await http.post('subscribers',{name:this.name,email:this.email,state:this.state}).then(response => {
                 this.loading = false;
                 this.message = response.data.message
                 this.$emit('change_list')

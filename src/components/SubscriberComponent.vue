@@ -31,7 +31,7 @@
 
 <script>
 import AddSubscriber from '@/components/AddSubscriber.vue'
-import axios from 'axios'
+import http from "../http_common.js";
 export default {
     name:'SubscriberComponent',
     components:{AddSubscriber},
@@ -42,18 +42,18 @@ export default {
         }
     },
     async mounted(){
-        return await axios.get('http://localhost/api/subscribers').then(response => {
+        return await http.get('subscribers').then(response => {
             this.subscribers_list = response.data.data
         });
     },
     methods:{
         async re_list_subscribers(){
-            return await axios.get('http://localhost/api/subscribers').then(response => {
+            return await http.get('subscribers').then(response => {
             this.subscribers_list = response.data.data
         });
         },
         remove_subscriber(id){
-            axios.delete('http://localhost/api/subscribers/'+id).then(response => {
+            http.delete('subscribers/'+id).then(response => {
             this.subscribers_list = response.data.data    
             this.message = response.data.message
         });
