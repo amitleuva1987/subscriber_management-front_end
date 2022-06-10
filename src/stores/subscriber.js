@@ -23,12 +23,31 @@ export const useSubscriber = defineStore({
             });
         },
 
-        async addSubscriber(name,email,state){
+        async addSubscriber(name,email,state)
+        {
             return await http.post('subscribers',{name:name,email:email,state:state}).then(response => {
                 return Promise.resolve(response);
             }).catch(error => {
                 return Promise.reject(error);
             });
+        },
+
+        async getASubscriber(id)
+        {
+            return await http.get('subscribers/'+id).then(response => {
+                return Promise.resolve(response);
+            }).catch(error => {
+                return Promise.reject(error);
+            });
+        },
+
+        async updateSubscriber(id,name,email,state)
+        {
+            return await http.put('subscribers/'+id,{name:name,email:email,state:state}).then(response => {
+                return Promise.resolve(response);
+            }).catch(error => {
+                return Promise.reject(error);
+            })
         }
     }
 })

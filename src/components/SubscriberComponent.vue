@@ -9,7 +9,7 @@
                    <td>NAME</td>
                    <td>EMAIL</td>
                    <td>STATE</td>
-                   <td>ACTION</td>
+                   <td class="text-center">ACTION</td>
                </tr>
            </thead>
            <tbody>
@@ -18,7 +18,9 @@
                    <td>{{subscriber.name}}</td>
                    <td>{{subscriber.email}}</td>
                    <td>{{subscriber.state}}</td>
-                   <td><button class="btn btn-sm btn-danger" @click="remove_subscriber(subscriber.id)"><font-awesome-icon icon="trash" /></button> <button class="btn btn-sm btn-info"><font-awesome-icon icon="edit" /></button></td>
+                   <td class="text-center">
+                    <button class="btn btn-sm btn-danger" @click="remove_subscriber(subscriber.id)"><font-awesome-icon icon="trash" /></button> 
+                    <RouterLink :to="{ name: 'subscriber', params: { id: subscriber.id } }" class="btn btn-sm btn-info" ><font-awesome-icon icon="edit" /></RouterLink></td>
                </tr>
            </tbody>    
        </table> 
