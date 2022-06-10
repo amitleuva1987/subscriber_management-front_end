@@ -1,6 +1,10 @@
 <template>
-    <p v-if="message" class="text-success text-center">{{message}}</p>
-    <p v-if="error_message" class="text-danger text-center">{{error_message}}</p>
+    <transition name="message">  
+    <p v-if="message" class="text-white bg-success p-2 ">{{message}}</p>
+    </transition>
+    <transition name="message">  
+    <p v-if="error_message" class="text-white bg-danger p-2">{{error_message}}</p>
+    </transition>
     <Form @submit="add_subscriber" class="border border-grey p-3" :validation-schema="schema">
         <div class="form-group">
             <label>Name</label>
@@ -31,7 +35,8 @@
 </template>
 
 <script>
-import http from "../http_common.js";
+import { mapState,mapActions } from 'pinia'
+import { useSubscriber } from '../stores/subscriber.js'
 import {Form, Field, ErrorMessage} from 'vee-validate'
 import * as yup from 'yup'
 
@@ -55,16 +60,23 @@ export default {
         }
     },
     methods:{
-        async add_subscriber(){
+        ...mapActions(useSubscriber,['addSubscriber','getAllSubscribers']),
+        add_subscriber(){
             this.loading = true;
-            await http.post('subscribers',{name:this.name,email:this.email,state:this.state}).then(response => {
+            this.addSubscriber(this.name,this.email,this.state).then(response => {
                 this.loading = false;
                 this.message = response.data.message
-                this.$emit('change_list')
-            }).catch(error => { 
+                setTimeout(() => this.message = '', 3000)
+                this.refreshSubscriber()
+            }).catch(error => {
                 this.loading = false;
                 this.error_message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
+                setTimeout(() => this.error_message = '', 3000)
             });
+        },
+        refreshSubscriber()
+        {
+            this.getAllSubscribers();
         }
     }
 }
@@ -74,4 +86,10 @@ export default {
 .border-grey{
     border-color: #e8e8e8;
 }
+.message-leave-to{
+    opacity: 0;
+    transform: translatex(0);
+    transition: all 1.5s ease-out;
+}
+
 </style>

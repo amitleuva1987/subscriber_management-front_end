@@ -1,7 +1,7 @@
 <template>
-    <div class="row">
-    <div class="col-sm-8">
-       <p class="text-success" v-if="message">{{message}}</p> 
+       <transition name="message">  
+       <p class="text-white bg-success p-2" v-if="message">{{message}}</p> 
+       </transition>
        <table class="table table-bordered" v-if="subscribers_list.length > 0">
            <thead>
                <tr>
@@ -18,46 +18,49 @@
                    <td>{{subscriber.name}}</td>
                    <td>{{subscriber.email}}</td>
                    <td>{{subscriber.state}}</td>
-                   <td><button class="btn btn-sm btn-danger" @click="remove_subscriber(subscriber.id)">X</button></td>
+                   <td><button class="btn btn-sm btn-danger" @click="remove_subscriber(subscriber.id)"><font-awesome-icon icon="trash" /></button> <button class="btn btn-sm btn-info"><font-awesome-icon icon="edit" /></button></td>
                </tr>
            </tbody>    
        </table> 
-    </div>
-    <div class="col-sm-4">
-      <AddSubscriber @change_list="re_list_subscribers"/>
-    </div>
-    </div>
+       <h2 v-else class="text-center">No Subscriber Found</h2>
 </template>
 
 <script>
+import { mapState,mapActions } from 'pinia'
+import { useSubscriber } from '../stores/subscriber.js'
 import AddSubscriber from '@/components/AddSubscriber.vue'
-import http from "../http_common.js";
+
 export default {
     name:'SubscriberComponent',
     components:{AddSubscriber},
     data(){
         return{
-            subscribers_list:[],
             message:''
         }
     },
-    async mounted(){
-        return await http.get('subscribers').then(response => {
-            this.subscribers_list = response.data.data
-        });
+    mounted(){
+         this.getAllSubscribers();
+    },
+    computed:{
+        ...mapState(useSubscriber,['subscribers_list']),
     },
     methods:{
-        async re_list_subscribers(){
-            return await http.get('subscribers').then(response => {
-            this.subscribers_list = response.data.data
-        });
-        },
+        ...mapActions(useSubscriber,['getAllSubscribers','removeSubscriber']),
         remove_subscriber(id){
-            http.delete('subscribers/'+id).then(response => {
-            this.subscribers_list = response.data.data    
-            this.message = response.data.message
-        });
+            this.removeSubscriber(id).then(response => {
+                console.log(response);
+                this.message = response.data.message
+                setTimeout(() => this.message = '', 3000)
+            });
         }
     }
 }
 </script>
+
+<style>
+.message-leave-to{
+    opacity: 0;
+    transform: translatex(0);
+    transition: all 1.5s ease-out;
+}
+</style>
