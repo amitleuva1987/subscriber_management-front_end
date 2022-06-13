@@ -10,8 +10,39 @@
         <li class="nav-item">
           <RouterLink to="/" class="nav-link active" aria-current="page">Home</RouterLink>
         </li>
+        <li class="nav-item">
+          <RouterLink to="/login" class="nav-link active" aria-current="page">Login</RouterLink>
+        </li>
+      </ul>
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active cursor" aria-current="page" @click="logout_method">Logout</a>
+        </li>
       </ul>
     </div>
   </div>
   </nav>
 </template>
+
+<script>
+import http from '../http_common'
+
+export default {
+  methods:{
+    logout_method(){
+        http.post('logout').then(response => { 
+          localStorage.removeItem('token');
+          this.$router.push('/login'); 
+        }).catch(error => {
+          console.log(error)
+        });
+    }
+  }
+}
+</script>
+
+<style scoped>
+.cursor{
+  cursor: pointer;
+}
+</style>
