@@ -1,4 +1,4 @@
-### How to use this repository
+### How to use
 
 - Clone the project with `git clone`
 - npm install && npm run dev
