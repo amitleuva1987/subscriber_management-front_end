@@ -1,4 +1,4 @@
-### How to use
+### How to use this repository
 
 - Clone the project with `git clone`
 - npm install && npm run dev
