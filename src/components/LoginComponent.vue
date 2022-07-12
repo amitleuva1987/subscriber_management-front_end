@@ -1,7 +1,7 @@
 <template>
-    <Form @submit="login_method" class="col-md-5 border border-primary p-3" :validation-schema="schema">
+    <Form @submit="login_method" class="col-md-5 border border-primary mt-5 p-3" :validation-schema="schema">
         <div class="form-group ">
-            <label>Email</label>
+            <label>Email / Username</label>
             <Field type="email" name="email" class="form-control" v-model="email"/>
             <ErrorMessage name="email" class="text-danger" />
         </div>
